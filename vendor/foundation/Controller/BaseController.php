@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 /**
 * 
 */
-class BaseController extends CompilerEngine
+class BaseController
 {
 
 	public $header = 200;
@@ -25,9 +25,9 @@ class BaseController extends CompilerEngine
 	private $resolver;
 	private $generator;
 	private $container;
-	private $not_found_controller = 'App\Controllers\ErrorController::notFound';
-	private $program_error_controller = 'App\Controllers\ErrorController::programError';
-	private $service_unavailable_controller = 'App\Controllers\ErrorController::serviceUnavailable';
+	private $not_found_controller = 'App\Controllers\Errors\ErrorController::notFound';
+	private $program_error_controller = 'App\Controllers\Errors\ErrorController::programError';
+	private $service_unavailable_controller = 'App\Controllers\Errors\ErrorController::serviceUnavailable';
 	protected static $instance = null;
 	
 	public function __construct()
@@ -87,10 +87,12 @@ class BaseController extends CompilerEngine
 			$controller[0]->container = $this->container;
 			$controller[0]->generator = $this->generator;
 			$controller[0]->blade = $this->blade;
-			$controller[0]->view = $this->view;
+			$controller[0]->view  = $this->view;
 
 			$response = call_user_func_array($controller, $arguments);
-			$this->header = $controller[0]->header;
+			if (isset($controller[0]->header)) {
+				$this->header = $controller[0]->header;
+			}
 		}
 		catch (ResourceNotFoundException $e) {
 			$response = $this->notFound();
@@ -104,7 +106,7 @@ class BaseController extends CompilerEngine
 
 	private function notFound()
 	{
-		$controller  = array('');
+		$controller = array('');
 		list($controller[0], $controller[1]) = explode('::', $this->not_found_controller);
 
 		$controller[0] = new $controller[0]();
@@ -113,7 +115,7 @@ class BaseController extends CompilerEngine
 		$controller[0]->generator = $this->generator;
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
-		$arguments  = array('');
+		$arguments = array('');
 
 		$response = call_user_func_array(array($controller[0], $controller[1]), $arguments);
 		$this->header = 404;
@@ -123,7 +125,7 @@ class BaseController extends CompilerEngine
 
 	private function programError()
 	{
-		$controller  = array('');
+		$controller = array('');
 		list($controller[0], $controller[1]) = explode('::', $this->program_error_controller);
 		$controller[0] = new $controller[0]();
 
@@ -132,7 +134,7 @@ class BaseController extends CompilerEngine
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
 
-		$arguments  = array('');
+		$arguments = array('');
 		$response = call_user_func_array($controller, $arguments);
 		$this->header = 500;
 
@@ -141,7 +143,7 @@ class BaseController extends CompilerEngine
 
 	private function serviceUnavailable()
 	{
-		$controller  = array('');
+		$controller = array('');
 		list($controller[0], $controller[1]) = explode('::', $this->service_unavailable_controller);
 		$controller[0] = new $controller[0]();
 
@@ -150,7 +152,7 @@ class BaseController extends CompilerEngine
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
 
-		$arguments  = array('');
+		$arguments = array('');
 		$response = call_user_func_array($controller, $arguments);
 		$this->header = 503;
 

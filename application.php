@@ -60,6 +60,7 @@ $container->instance('http.kernel', $kernel);
 
 $base_controller = Foundation\Controller\BaseController::singleton();
 $container->instance('app.base_controller', $base_controller);
+// no need for all those args, the container will suffice
 $response = $base_controller->forge($request, $resolver, $matcher, $container);
 
 
