@@ -147,7 +147,7 @@ class BaseController
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
-	public static function setNotFoundController($controller)
+	public function setNotFoundController($controller)
 	{
 		$this->not_found_controller = $controller;
 		return $this;
@@ -159,7 +159,7 @@ class BaseController
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
-	public static function setErrorController($controller)
+	public function setErrorController($controller)
 	{
 		$this->program_error_controller = $controller;
 		return $this;
@@ -171,7 +171,7 @@ class BaseController
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
-	public static function setUnavailableController($controller)
+	public function setUnavailableController($controller)
 	{
 		$this->service_unavailable_controller = $controller;
 		return $this;
@@ -223,7 +223,7 @@ class BaseController
 	 */
 	private function notFound()
 	{
-		$controller = array('');
+		$controller = array();
 		list($controller[0], $controller[1]) = explode('::', $this->not_found_controller);
 
 		$controller[0] = new $controller[0]();
@@ -232,7 +232,7 @@ class BaseController
 		$controller[0]->generator = $this->generator;
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
-		$arguments = array('');
+		$arguments = array();
 
 		$response = call_user_func_array(array($controller[0], $controller[1]), $arguments);
 		$this->header = 404;
@@ -247,7 +247,7 @@ class BaseController
 	 */
 	private function programError()
 	{
-		$controller = array('');
+		$controller = array();
 		list($controller[0], $controller[1]) = explode('::', $this->program_error_controller);
 		$controller[0] = new $controller[0]();
 
@@ -256,7 +256,7 @@ class BaseController
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
 
-		$arguments = array('');
+		$arguments = array();
 		$response = call_user_func_array($controller, $arguments);
 		$this->header = 500;
 
@@ -270,7 +270,7 @@ class BaseController
 	 */
 	private function serviceUnavailable()
 	{
-		$controller = array('');
+		$controller = array();
 		list($controller[0], $controller[1]) = explode('::', $this->service_unavailable_controller);
 		$controller[0] = new $controller[0]();
 
@@ -279,7 +279,7 @@ class BaseController
 		$controller[0]->blade = $this->blade;
 		$controller[0]->view = $this->view;
 
-		$arguments = array('');
+		$arguments = array();
 		$response = call_user_func_array($controller, $arguments);
 		$this->header = 503;
 
