@@ -12,7 +12,17 @@ class HomeController
 		$data = array(
 			'name' => $who
 		);
-		$flashes = array (
+		$_SESSION['flashes'] = array(
+			'welcome' => array(
+				'name' => 'welcome',
+				'type' => 'success',
+				'message' => sprintf('Welcome back, %s!', $who)
+			),
+			'mood' => array(
+				'name' => 'mood',
+				'type' => 'primary',
+				'message' => sprintf('How are you, %s?', $who)
+			),
 			'rage' => array(
 				'name' => 'rage',
 				'type' => 'danger',
@@ -20,6 +30,6 @@ class HomeController
 			),
 		);
 		$this->header = 200;
-		return $this->view->make('home', $data)->with('flash', $flashes)->render();
+		return $this->view->make('home', $data)->render();
 	}
 }

@@ -67,6 +67,10 @@
 				<div class="well well2">This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</div>
 			</div>
 			<div class="col-sm-8">
+				<?php isset($_SESSION['flashes']) ?: $_SESSION['flashes'] = array(); ?>
+				@foreach($_SESSION['flashes'] as $flash => $value)
+					<div class="alert alert-{{ $value['type'] }}">{{ $value['message'] }}</div>
+				@endforeach
 				@yield('content')
 			</div>
 		</div>
