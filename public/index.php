@@ -1,4 +1,5 @@
 <?php
+// Add a class to handle Sessions
 session_start();
 
 /*
@@ -23,8 +24,15 @@ session_start();
 |	production: If the application is in production mode.
 |
 */
-	$system = array('environment' => 'development');
-	defined('ENVIRONMENT') OR define('ENVIRONMENT', strtolower($system['environment']));
+	define('ENVIRONMENT', 'development');
+
+	$devAllowed = array('127.0.0.1', 'fe80::1', '::1');
+	if (ENVIRONMENT == 'development') {
+		if (!in_array(@$_SERVER['REMOTE_ADDR'], $devAllowed)) {
+			header('HTTP/1.0 403 Forbidden');
+			exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
+		}
+	}
 
 
 /*

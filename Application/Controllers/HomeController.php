@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace Application\Controllers;
 
 /**
 * 
@@ -12,6 +12,8 @@ class HomeController
 		$data = array(
 			'name' => $who
 		);
+
+		// Add a ServiceProvider for Flashes and Messages
 		$_SESSION['flashes'] = array(
 			'welcome' => array(
 				'name' => 'welcome',
@@ -29,6 +31,7 @@ class HomeController
 				'message' => sprintf('Fuck you, %s!', $who)
 			),
 		);
+
 		$this->header = 200;
 		return $this->view->make('home', $data)->render();
 	}

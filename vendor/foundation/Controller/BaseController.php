@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Add an event for PRE & POST Controller along with GLOBAL Controller
+
 namespace Foundation\Controller;
 
 use Philo\Blade\Blade;
@@ -81,21 +83,21 @@ class BaseController
 	 * 
 	 * @var string
 	 */
-	private $not_found_controller = 'App\Controllers\Errors\ErrorController::notFound';
+	private $not_found_controller = 'Application\Controllers\Errors\ErrorController::notFound';
 
 	/**
 	 * Set the programError Controller
 	 * 
 	 * @var string
 	 */
-	private $program_error_controller = 'App\Controllers\Errors\ErrorController::programError';
+	private $program_error_controller = 'Application\Controllers\Errors\ErrorController::programError';
 
 	/**
 	 * Set the serviceUnavailable Controller
 	 * 
 	 * @var string
 	 */
-	private $service_unavailable_controller = 'App\Controllers\Errors\ErrorController::serviceUnavailable';
+	private $service_unavailable_controller = 'Application\Controllers\Errors\ErrorController::serviceUnavailable';
 
 	/**
 	 * A BaseController singleton instance
@@ -117,7 +119,7 @@ class BaseController
 	 * @param  \Symfony\Component\HttpKernel\Controller\ControllerResolver  $resolver
 	 * @param  \Symfony\Component\Routing\Matcher\UrlMatcher                $matcher
 	 * @param  \Illuminate\Container\Container                              $container
-	 * @return string
+	 * @return mixed
 	 */
 	public function forge(Request $request, ControllerResolver $resolver, UrlMatcher $matcher, Container $container)
 	{
@@ -183,7 +185,7 @@ class BaseController
 	 * if no Route was found, And serviceUnavailableController if there was an error
 	 * In the Controller
 	 * 
-	 * @return string
+	 * @return mixed
 	 */
 	public function callController()
 	{
@@ -219,7 +221,7 @@ class BaseController
 	/**
 	 * Dispatch a notFound Controller
 	 * 
-	 * @return string
+	 * @return mixed
 	 */
 	private function notFound()
 	{
@@ -243,7 +245,7 @@ class BaseController
 	/**
 	 * Dispatch a programError Controller
 	 * 
-	 * @return string
+	 * @return mixed
 	 */
 	private function programError()
 	{
@@ -266,7 +268,7 @@ class BaseController
 	/**
 	 * Dispatch a serviceUnavaialble Controller
 	 * 
-	 * @return string
+	 * @return mixed
 	 */
 	private function serviceUnavailable()
 	{

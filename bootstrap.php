@@ -19,7 +19,7 @@
 	defined('BASE_PATH') OR define('BASE_PATH', dirname(PUBLIC_DIR) . DS);
 
 	// application directory path
-	defined('APP') OR define('APP' , BASE_PATH . 'App' . DS);
+	defined('APP') OR define('APP' , BASE_PATH . 'Application' . DS);
 
 	// vendor directory path
 	defined('VENDOR') OR define('VENDOR', BASE_PATH . 'vendor' . DS);
