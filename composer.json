@@ -1,5 +1,5 @@
 {
-	"name": "Foundation",
+	"name": "Foundation/Foundation",
 	"version": "1.0.0",
 
 	"require": {
@@ -15,7 +15,7 @@
 	"autoload": {
 		"psr-4": {
 			"Foundation\\": "vendor/foundation/",
-			"App\\": "App/"
+			"Application\\": "Application/"
 		}
 	}
 }
