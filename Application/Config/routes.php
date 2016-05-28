@@ -10,5 +10,5 @@ return array(
 		'url' => '/test',
 		'controller' => 'Application\Controllers\TestController::index',
 		'params' => array()
-	),
+	)
 );
