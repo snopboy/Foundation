@@ -51,7 +51,7 @@ class ComposerStaticInit9dc3cecb624c2eb270e91d6e6e142c75
         ),
         'A' => 
         array (
-            'App\\' => 4,
+            'Application\\' => 12,
         ),
     );
 
@@ -128,9 +128,9 @@ class ComposerStaticInit9dc3cecb624c2eb270e91d6e6e142c75
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
-        'App\\' => 
+        'Application\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/App',
+            0 => __DIR__ . '/../..' . '/Application',
         ),
     );
 

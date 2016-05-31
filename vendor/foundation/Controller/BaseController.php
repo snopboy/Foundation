@@ -9,6 +9,7 @@ use Illuminate\Container\Container;
 use Illuminate\View\Engines\CompilerEngine;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
@@ -206,6 +207,9 @@ class BaseController
 			$response = call_user_func_array($controller, $arguments);
 			if (isset($controller[0]->header)) {
 				$this->header = $controller[0]->header;
+			}
+			if (isset($controller[0]->redirect)) {
+				$response = new RedirectResponse($controller[0]->redirect);
 			}
 		}
 		catch (ResourceNotFoundException $e) {

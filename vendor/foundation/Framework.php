@@ -2,11 +2,8 @@
 
 namespace Foundation;
 
+use Foundation\Data\Config;
 use Foundation\Http\Kernel;
-use Foundation\Http\Router;
-use Foundation\Http\Request;
-use Foundation\Http\Response;
-use Foundation\Events\Dispatcher;
 use Illuminate\Container\Container;
 
 /**
@@ -42,15 +39,12 @@ class Framework
 	
 	public function Boot()
 	{
-		$this->container->singleton('http.router', function()
+		Config::populate();
+		$this->container->singleton('http.kernel', function()
 		{
-			return new Router($this);
+			return new Kernel($this);
 		});
-		$this->container->singleton('http.request', function()
-		{
-			return new Request($this);
-		});
-		$this->container->make('http.router');
+		$this->container->make('http.kernel');
 
 		//$this->container->singleton('http.kernel', function()
 		//{

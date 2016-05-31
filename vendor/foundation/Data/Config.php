@@ -1,49 +1,67 @@
 <?php
 
 namespace Foundation\Data;
+use \Exception;
 
 
 class Config
 {
 
-
-	protected $settings = array();
-	protected $protected = array();
-
+	protected static $settings = array();
+	protected static $protected = array();
 
 
-	public function __construct()
+	public static function populate()
 	{
-		if (!$this->getConfig()) throw new \Exception("Error Processing Configuration file", 1);
-		$this->settings = $this->getConfig();
+		if (!self::getConfig() || !is_array(self::getConfig())) throw new Exception("Error Processing Configuration file", 1);
+		self::$settings = self::getConfig();
 	}
 
 
-
-	private function getConfig()
+	private static function getConfig()
 	{
 		$file = CONF_PATH.'settings.php';
 		if (!file_exists($file)) return false;
-
 		return include($file);
 	}
 
 
-
-	/*public function set($key, $value, $protected = false)
+	public static function exist($key)
 	{
-		if (empty($key) || empty($value)) return false;
-		if ($protected) $this->protected[$key] = true;
-		if (isset($protected[$key])) return false;
-		$this->settings[$key] = $value;
-	}*/
+		return isset(static::$settings[$key]);
+	}
 
 
-
-	public function get($key)
+	public static function get($key, $default = null)
 	{
-		if (empty($key)) return false;
-		if (!isset($this->settings[$key])) return false;
-		return $this->settings[$key];
+		if (!static::exist($key)) return $default;
+		return static::$settings[$key];
+	}
+
+
+	public static function add($key, $value = null)
+	{
+		if (static::exist($key)) return false;
+		return static::$settings[$key] = $value;
+	}
+
+
+	public static function addBulk($settings = array())
+	{
+		return array_merge(static::$settings, $settings);
+	}
+
+
+	public static function set($key, $value = null)
+	{
+		return static::$settings[$key] = $value;
+	}
+
+
+	public static function delete($key)
+	{
+		if (!static::exist($key)) return true;
+		unset(static::$settings[$key]);
+		return true;
 	}
 }

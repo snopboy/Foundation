@@ -8,9 +8,9 @@
 	<title>{{ $settings->get('title') }}</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="static/css/bootstrap.min.css">
-	<link rel="stylesheet" href="static/css/main.css">
-	<script src="static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+	<link rel="stylesheet" href="{{ $generator->generate('home') }}static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ $generator->generate('home') }}static/css/main.css">
+	<script src="{{ $generator->generate('home') }}static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top" role="navigation">
@@ -81,9 +81,9 @@
 	</div>
 {{-- /container --}}
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="static/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="static/js/vendor/bootstrap.min.js"></script>
-	<script src="static/js/main.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ $generator->generate('home') }}static/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+	<script src="{{ $generator->generate('home') }}static/js/vendor/bootstrap.min.js"></script>
+	<script src="{{ $generator->generate('home') }}static/js/main.js"></script>
 {{-- Google Analytics: change UA-XXXXX-X to be your site's ID. --}}
 	<script>
 		(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

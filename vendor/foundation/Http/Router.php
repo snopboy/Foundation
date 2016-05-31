@@ -1,10 +1,5 @@
 <?php
 
-
-//$routes = new RouteCollection();
-//require(CONF_PATH.'routes.php');
-//$container->instance('http.route_collection', $routes);
-
 namespace Foundation\Http;
 
 use Foundation\Framework;
@@ -12,8 +7,7 @@ use Illuminate\Container\Container;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
 * 
@@ -21,26 +15,70 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 class Router
 {
 
+	/**
+	 * A Framework instance
+	 * 
+	 * @var \Foundation\Framework
+	 */
 	public $framework;
+
+	/**
+	 * Array of all registered Routes
+	 * 
+	 * @var array
+	 */
 	public $routes = array();
+
+	/**
+	 * RouteCollection instance with all registered routes
+	 * 
+	 * @var \Symfony\Component\Routing\RouteCollection
+	 */
 	public $router;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param  \Foundation\Framework
+	 * @return \Foundation\Http\Router
+	 */
 	public function __construct(Framework $framework)
 	{
 		$this->framework = $framework;
 		$this->getRouteCollection()->registerRoutes();
 
-		$routes = $this->routes;
-		$framework->container->singleton('http.routes', $this->router);
-		//var_dump($this->router);
+		$this->framework->container->instance('http.routes', $this->router);
 	}
-	
+
+	/**
+	 * Get all defined routes from Application/Config/routes.php
+	 * As an Array and store it in Router::$routes
+	 * 
+	 * @return \Foundation\Http\Router
+	 */
 	private function getRouteCollection()
 	{
 		$this->routes = require(CONF_PATH.'routes.php');
 		return $this;
 	}
-	
+
+	/**
+	 * Get all defined routes from Application/Config/routes.php
+	 * As an Array and store it in Router::$routes
+	 * 
+	 * @return \Foundation\Http\Router
+	 */
+	public function getRoutes()
+	{
+		return $this->router;
+	}
+
+	/**
+	 * Register all routes in the RouteCollection and parse the route arrays
+	 * TODO: parse routes recursively
+	 * 
+	 * @return \Foundation\Http\Router
+	 */
 	private function registerRoutes()
 	{
 		$this->router = new RouteCollection();
