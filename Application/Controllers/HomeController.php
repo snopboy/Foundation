@@ -7,10 +7,10 @@ namespace Application\Controllers;
 class HomeController
 {
 	
-	public function index($who)
+	public function index($name)
 	{
 		$data = array(
-			'name' => $who
+			'name' => $name
 		);
 
 		// Add a ServiceProvider for Flashes and Messages
@@ -18,17 +18,17 @@ class HomeController
 			'welcome' => array(
 				'name' => 'welcome',
 				'type' => 'success',
-				'message' => sprintf('Welcome back, %s!', $who)
+				'message' => sprintf('Welcome back, %s!', $name)
 			),
 			'mood' => array(
 				'name' => 'mood',
 				'type' => 'primary',
-				'message' => sprintf('How are you, %s?', $who)
+				'message' => sprintf('How are you, %s?', $name)
 			),
 			'rage' => array(
 				'name' => 'rage',
 				'type' => 'danger',
-				'message' => sprintf('Fuck you, %s!', $who)
+				'message' => sprintf('Fuck you, %s!', $name)
 			),
 		);
 

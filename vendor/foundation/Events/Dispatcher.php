@@ -1,10 +1,5 @@
 <?php
 
-
-//$container->instance('events.dispatcher', new EventDispatcher());
-//app('events.dispatcher')->addSubscriber(new RouterListener(app('http.matcher'), new RequestStack()));
-
-
 namespace Foundation\Events;
 
 use Foundation\Framework;

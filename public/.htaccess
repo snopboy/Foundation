@@ -1,5 +1,6 @@
 Options -Indexes
 AddDefaultCharset utf-8
+Header set Access-Control-Allow-Origin "*"
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	Options +FollowSymLinks -MultiViews

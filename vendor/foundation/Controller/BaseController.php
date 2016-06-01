@@ -38,6 +38,27 @@ class BaseController
 	private $view;
 
 	/**
+	 * Set the Foundation View bridge
+	 * 
+	 * @var \Foundation\MVC\View
+	 */
+	//private $view;
+
+	/**
+	 * Set the Foundation Loader Helper
+	 * 
+	 * @var \Foundation\MVC\Loader
+	 */
+	//private $loader;
+
+	/**
+	 * Set the Foundation Database Driver
+	 * 
+	 * @var \Foundation\MVC\Database
+	 */
+	//private $database;
+
+	/**
 	 * A Blade instance
 	 * 
 	 * @var \Philo\Blade\Blade
@@ -135,6 +156,42 @@ class BaseController
 		$this->container->instance('view.blade.view', $this->view);
 
 		return $this->callController();
+	}
+
+	/**
+	 * Description
+	 * 
+	 * @param  \stdClass  $class
+	 * @return $type
+	 */
+	public function Loader()
+	{
+		if ($this->loader == null) $this->loader = new Loader();
+		return $this->loader;
+	}
+
+	/**
+	 * Description
+	 * 
+	 * @param  \stdClass  $class
+	 * @return $type
+	 */
+	public function Model($model)
+	{
+		if ($this->database == null) $this->database = new Database();
+		return $this->Loader()->Model($model);
+	}
+
+	/**
+	 * Description
+	 * 
+	 * @param  \stdClass  $class
+	 * @return $type
+	 */
+	public function View()
+	{
+		if ($this->view == null) $this->view = new View();
+		return $this->view;
 	}
 
 

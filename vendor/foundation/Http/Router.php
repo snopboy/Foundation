@@ -86,7 +86,7 @@ class Router
 			$info = array();
 			$info['params'] = array();
 			foreach ($value['params'] as $param_key => $param_value) {
-				$info['params'][$param_key] = $param_value;
+				$info[$param_key] = $param_value;
 			}
 			$info['_controller'] = $value['controller'];
 			$this->router->add($route, new Route($value['url'],

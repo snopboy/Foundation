@@ -26,8 +26,8 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ $generator->generate('home') }}">Home</a></li>
-				<li><a href="{{ $generator->generate('home') }}">Home</a></li>
-				<li><a href="{{ $generator->generate('home') }}test">Test</a></li>
+				<li><a href="{{ $generator->generate('test') }}">Test</a></li>
+				<li><a href="{{ $generator->generate('test') }}/lol">TestRoute</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
