@@ -2,11 +2,11 @@
 namespace Application\Controllers;
 
 /**
-* 
+*
 */
 class HomeController
 {
-	
+
 	public function index($name)
 	{
 		$data = array(
@@ -35,4 +35,5 @@ class HomeController
 		$this->header = 200;
 		return $this->view->make('home', $data)->render();
 	}
+
 }

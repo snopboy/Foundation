@@ -27,7 +27,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="{{ $generator->generate('home') }}">Home</a></li>
 				<li><a href="{{ $generator->generate('test') }}">Test</a></li>
-				<li><a href="{{ $generator->generate('test') }}/lol">TestRoute</a></li>
+				<li><a href="{{ $generator->generate('api') }}">API</a></li>
+				<li><a href="{{ $generator->generate('redirect') }}">Redirect</a></li>
+				<li><a href="{{ $generator->generate('home') }}{{ md5(microtime(true)) }}">404</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

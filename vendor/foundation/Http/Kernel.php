@@ -7,15 +7,16 @@ use Foundation\Http\Router;
 use Foundation\Http\Request;
 //use Foundation\Http\Response;
 use Foundation\Events\Dispatcher;
-use Foundation\Controller\BaseController;
 use Illuminate\Container\Container;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Foundation\MVC\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
-* 
+*
 */
 class Kernel
 {
@@ -28,7 +29,7 @@ class Kernel
 	public $response;
 	public $resolver;
 	public $content;
-	
+
 	public function __construct(Framework $framework)
 	{
 		$this->framework = $framework;
@@ -58,15 +59,27 @@ class Kernel
 		);
 
 		// move to \Foundation\Http\Response
-		if (!$this->response instanceof Response) {
-			$this->response = new Response($this->content);
-			$this->response->setStatusCode($this->base_controller->header);
+		if (is_array($this->content)) {
+			$json = $this->content;
+			$this->content = new JsonResponse();
+			$this->content->setData($json);
 		}
-		$this->response->send();
+		elseif ($this->content instanceof Response) {
+		}
+		else {
+			$this->content = new Response($this->content);
+
+			if (!empty($this->base_controller->contentType)) {
+				$this->content->headers->set('Content-Type', $this->base_controller->contentType);
+			}
+
+			$this->content->setStatusCode($this->base_controller->header);
+		}
+		$this->content->send();
 
 		$this->container->make('http.kernel')->terminate(
 			$this->container->make('http.request')->request,
-			$this->response
+			$this->content
 		);
 
 		//var_dump($this->request->request->getPathInfo());
@@ -75,7 +88,7 @@ class Kernel
 	/**
 	 * Get all defined routes from Application/Config/routes.php
 	 * As an Array and store it in Router::$routes
-	 * 
+	 *
 	 * @return \Foundation\Http\Router
 	 */
 	private function registerRequest()
@@ -88,7 +101,7 @@ class Kernel
 	/**
 	 * Get all defined routes from Application/Config/routes.php
 	 * As an Array and store it in Router::$routes
-	 * 
+	 *
 	 * @return \Foundation\Http\Router
 	 */
 	private function registerResponse()

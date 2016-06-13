@@ -11,9 +11,14 @@ return array(
 		'controller' => 'Application\Controllers\TestController::index',
 		'params' => array()
 	),
-	'testroute' => array(
-		'url' => '/test/{route}',
-		'controller' => 'Application\Controllers\TestController::index',
-		'params' => array('name' => 'TestRoute')
-	)
+	'api' => array(
+		'url' => '/api',
+		'controller' => 'Application\Controllers\TestController::api',
+		'params' => array('name' => 'Json API')
+	),
+	'redirect' => array(
+		'url' => '/redirect',
+		'controller' => 'Application\Controllers\TestController::redirect',
+		'params' => array('url' => 'http://forum.ragezone.com/f425')
+	),
 );

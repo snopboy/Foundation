@@ -2,7 +2,7 @@
 
 // TODO: Add an event for PRE & POST Controller along with GLOBAL Controller
 
-namespace Foundation\Controller;
+namespace Foundation\MVC\Controller;
 
 use Philo\Blade\Blade;
 use Illuminate\Container\Container;
@@ -25,110 +25,117 @@ class BaseController
 
 	/**
 	 * Set the header status code of the response
-	 * 
+	 *
 	 * @var int
 	 */
 	public $header = 200;
 
 	/**
+	 * Set the header status code of the response
+	 *
+	 * @var string
+	 */
+	public $contentType;
+
+	/**
 	 * Set the Blade View method
-	 * 
+	 *
 	 * @var \Philo\Blade\Blade::view()
 	 */
 	private $view;
 
 	/**
 	 * Set the Foundation View bridge
-	 * 
+	 *
 	 * @var \Foundation\MVC\View
 	 */
 	//private $view;
 
 	/**
 	 * Set the Foundation Loader Helper
-	 * 
+	 *
 	 * @var \Foundation\MVC\Loader
 	 */
 	//private $loader;
 
 	/**
 	 * Set the Foundation Database Driver
-	 * 
+	 *
 	 * @var \Foundation\MVC\Database
 	 */
 	//private $database;
 
 	/**
 	 * A Blade instance
-	 * 
+	 *
 	 * @var \Philo\Blade\Blade
 	 */
 	private $blade;
 
 	/**
 	 * A Request instance
-	 * 
-	 * @var \Symfony\Component\HttpFoundation\Request 
+	 *
+	 * @var \Symfony\Component\HttpFoundation\Request
 	 */
 	private $request;
 
 	/**
 	 * A UrlMatcher instance
-	 * 
+	 *
 	 * @var \Symfony\Component\Routing\Matcher\UrlMatcher
 	 */
 	private $matcher;
 
 	/**
 	 * A ControllerResolver instance
-	 * 
+	 *
 	 * @var \Symfony\Component\HttpKernel\Controller\ControllerResolver
 	 */
 	private $resolver;
 
 	/**
 	 * A UrlGenerator instance
-	 * 
+	 *
 	 * @var \Symfony\Component\Routing\Generator\UrlGenerator
 	 */
 	private $generator;
 
 	/**
 	 * A Container instance
-	 * 
+	 *
 	 * @var \Illuminate\Container\Container
 	 */
 	private $container;
 
 	/**
 	 * Set the notFound Controller
-	 * 
+	 *
 	 * @var string
 	 */
 	private $not_found_controller = 'Application\Controllers\Errors\ErrorController::notFound';
 
 	/**
 	 * Set the programError Controller
-	 * 
+	 *
 	 * @var string
 	 */
 	private $program_error_controller = 'Application\Controllers\Errors\ErrorController::programError';
 
 	/**
 	 * Set the serviceUnavailable Controller
-	 * 
+	 *
 	 * @var string
 	 */
 	private $service_unavailable_controller = 'Application\Controllers\Errors\ErrorController::serviceUnavailable';
 
 	/**
 	 * A BaseController singleton instance
-	 * 
+	 *
 	 * @var \Foundation\Controller\BaseController
 	 */
 	protected static $instance = null;
 
-	
+
 	public function __construct()
 	{
 	}
@@ -136,7 +143,7 @@ class BaseController
 	/**
 	 * Forge a Controller container, pass information to app controllers,
 	 * Instantiate new Views (Blade Engine) and direct requests to the right controller
-	 * 
+	 *
 	 * @param  \Symfony\Component\HttpFoundation\Request                    $request
 	 * @param  \Symfony\Component\HttpKernel\Controller\ControllerResolver  $resolver
 	 * @param  \Symfony\Component\Routing\Matcher\UrlMatcher                $matcher
@@ -160,7 +167,7 @@ class BaseController
 
 	/**
 	 * Description
-	 * 
+	 *
 	 * @param  \stdClass  $class
 	 * @return $type
 	 */
@@ -172,7 +179,7 @@ class BaseController
 
 	/**
 	 * Description
-	 * 
+	 *
 	 * @param  \stdClass  $class
 	 * @return $type
 	 */
@@ -184,7 +191,7 @@ class BaseController
 
 	/**
 	 * Description
-	 * 
+	 *
 	 * @param  \stdClass  $class
 	 * @return $type
 	 */
@@ -203,7 +210,7 @@ class BaseController
 
 	/**
 	 * Set the notFoundController (404 not found)
-	 * 
+	 *
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
@@ -215,7 +222,7 @@ class BaseController
 
 	/**
 	 * Set the errorController (500 internal server error)
-	 * 
+	 *
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
@@ -227,7 +234,7 @@ class BaseController
 
 	/**
 	 * Set the unavailableController (503 service unavailable)
-	 * 
+	 *
 	 * @param  string  $controller
 	 * @return \Foundation\Controller\BaseController
 	 */
@@ -242,7 +249,7 @@ class BaseController
 	 * Add global properties to the controller, dispatch notFoundController
 	 * if no Route was found, And serviceUnavailableController if there was an error
 	 * In the Controller
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function callController()
@@ -281,7 +288,7 @@ class BaseController
 
 	/**
 	 * Dispatch a notFound Controller
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function notFound()
@@ -305,7 +312,7 @@ class BaseController
 
 	/**
 	 * Dispatch a programError Controller
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function programError()
@@ -328,7 +335,7 @@ class BaseController
 
 	/**
 	 * Dispatch a serviceUnavaialble Controller
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function serviceUnavailable()
