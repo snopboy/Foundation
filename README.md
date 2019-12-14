@@ -1,3 +1,5 @@
+# Packagist account is being transferred to Foundation CSS.
+
 # Foundation
 Just a wip of a mini framework
 
